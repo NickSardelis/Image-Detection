@@ -1,0 +1,12 @@
+
+<app-navigation style="display: flex; justify-content: flex-end;"></app-navigation>
+<app-logo></app-logo>
+<app-image-link></app-image-link>
+<div class="particles">
+    <ng-particles
+        [id]="id"
+        [options]="particlesOptions"
+        [particlesInit]="particlesInit"
+        (particlesLoaded)="particlesLoaded($event)"
+    ></ng-particles>
+</div>
