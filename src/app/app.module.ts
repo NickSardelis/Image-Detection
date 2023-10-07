@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgParticlesModule } from "ng-particles";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { NgParticlesModule } from "ng-particles";
     BrowserAnimationsModule,
     MatButtonModule,
     NgbModule,
-    NgParticlesModule
+    NgParticlesModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     LogoComponent,
