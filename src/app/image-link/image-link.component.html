@@ -5,7 +5,7 @@
       <label style="color: azure; font-family: 'Courier New', Courier, monospace; font-size: larger; font-weight: bolder;" for="exampleInputEmail1" class=" d-flex justify-content-center form-label">I can detect faces in any picture. Give me a try</label>
       <div class="d-flex justify-content-center">
             <div style="background-color: #1b2845;background-image: linear-gradient(315deg, #1b2845 0%, #274060 74%);; width: 1000px;" class="d-flex justify-content-center shadow p-3 m-3 bg-body border rounded">
-                <input type="text" name="input" class=" form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="input">
+                <input type="text" name="input" class=" form-control" id="exampleInputEmail1" aria-describedby="emailHelp" (ngModelChange)="onInputChange($event)" [(ngModel)]="input">
                 <button type="button" class="btn btn-outline-light btn-lg" (click)="onButtonSubmit()">Detect</button>
             </div>
         </div>
