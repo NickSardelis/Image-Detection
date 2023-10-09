@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgParticlesModule } from "ng-particles";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LogoComponent,
     NavigationComponent,
     ImageLinkComponent,
-    FaceRecogComponent
+    FaceRecogComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

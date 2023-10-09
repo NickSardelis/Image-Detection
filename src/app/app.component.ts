@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
 import { MoveDirection, ClickMode, HoverMode, OutMode, Engine, Container } from "tsparticles-engine";
 import { loadSlim } from "tsparticles-slim";
 
@@ -12,6 +14,12 @@ export class AppComponent {
 
     title = 'angular-face-image';
     id = "tsparticles";
+
+
+    
+
+
+
 
     particlesOptions = {
         background: {
