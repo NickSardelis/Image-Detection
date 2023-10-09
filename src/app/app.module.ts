@@ -14,6 +14,14 @@ import { NgParticlesModule } from "ng-particles";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { VerifyComponent } from './verify/verify.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +31,8 @@ import { SignupComponent } from './signup/signup.component';
     ImageLinkComponent,
     FaceRecogComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +43,13 @@ import { SignupComponent } from './signup/signup.component';
     NgbModule,
     NgParticlesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule
+    
   ],
   exports: [
     LogoComponent,
