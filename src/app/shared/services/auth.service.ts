@@ -38,6 +38,7 @@ SignIn = (email: string, password : string) => {
       this.SetUserData(result.user);
       this.afAuth.authState.subscribe((user) => {
         if (user) {
+          console.log(user)
           this.router.navigate(['app'])
         }
       })
@@ -69,7 +70,7 @@ SendVerificationMail = () => {
   
 
 
-isLoggedin = () : boolean => {
+get isLoggedin() : boolean {
   const user = JSON.parse(localStorage.getItem('user')!)
   return user !== null && user.emailVerified !== false ? true : false;
 }

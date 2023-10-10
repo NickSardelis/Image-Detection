@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -9,7 +9,9 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class SigninComponent {
   constructor (
-    public authService: AuthService
+    public authService: AuthService,
+    private router : Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
 }
