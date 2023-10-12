@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   userData: any;
+  accountErrorMessage: any;
 
   constructor(
     public afs: AngularFirestore,
@@ -32,6 +33,7 @@ export class AuthService {
 
 
 SignIn = (email: string, password : string) => {
+  this.accountErrorMessage = ''
   return this.afAuth
     .signInWithEmailAndPassword(email, password)
     .then((result) => {
