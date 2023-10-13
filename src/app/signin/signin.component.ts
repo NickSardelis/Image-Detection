@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 
@@ -13,5 +13,6 @@ export class SigninComponent {
     private router : Router,
     private activatedRoute: ActivatedRoute
   ) {}
+  ngOnInit() {}
 
 }

@@ -33,7 +33,6 @@ export class AuthService {
 
 
 SignIn = (email: string, password : string) => {
-  this.accountErrorMessage = ''
   return this.afAuth
     .signInWithEmailAndPassword(email, password)
     .then((result) => {
@@ -54,8 +53,8 @@ SignUp = (email: string, password :string) => {
   return this.afAuth
     .createUserWithEmailAndPassword(email, password)
     .then((result) => {
-      this.SendVerificationMail();
-      this.SetUserData(result.user)
+      this.SendVerificationMail() 
+      this.SetUserData(result.user) 
       })
       .catch((error) => {
         window.alert(error.message)
@@ -75,6 +74,8 @@ SendVerificationMail = () => {
 get isLoggedin() : boolean {
   const user = JSON.parse(localStorage.getItem('user')!)
   return user !== null && user.emailVerified !== false ? true : false;
+
+  
 }
 
 SetUserData = (user: any) => {

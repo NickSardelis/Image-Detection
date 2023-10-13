@@ -20,5 +20,6 @@ export class authGuard {
     
 
   
-  return true;
-    }}
+    return true;
+    }
+  }

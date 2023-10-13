@@ -1,1 +1,16 @@
-{}
+{
+  "hosting": {
+    "public": "dist/angular-face-image",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
