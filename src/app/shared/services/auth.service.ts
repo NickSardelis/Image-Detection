@@ -53,8 +53,9 @@ SignUp = (email: string, password :string) => {
   return this.afAuth
     .createUserWithEmailAndPassword(email, password)
     .then((result) => {
+      this.SetUserData(result.user)
       this.SendVerificationMail() 
-      this.SetUserData(result.user) 
+      this.afAuth.signOut()
       })
       .catch((error) => {
         window.alert(error.message)
@@ -74,8 +75,6 @@ SendVerificationMail = () => {
 get isLoggedin() : boolean {
   const user = JSON.parse(localStorage.getItem('user')!)
   return user !== null && user.emailVerified !== false ? true : false;
-
-  
 }
 
 SetUserData = (user: any) => {
@@ -86,7 +85,7 @@ SetUserData = (user: any) => {
     emailVerified: user.emailVerified
   }
   return userRef.set(userData, {
-    merge: true
+    merge: false
   })
 }
 
