@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
+import { ReactiveFormsModule, FormControl ,FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signin',
@@ -8,11 +8,17 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent {
+  signin : FormGroup
   constructor (
     public authService: AuthService,
-    private router : Router,
-    private activatedRoute: ActivatedRoute
+    private formBuilder : FormBuilder
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.signin = this.formBuilder.group({
+      email : ['', [Validators.required, Validators.email]],
+      password : ['', [Validators.required, Validators.minLength(6)]]
+    })
+  }
+  get f() { return this.signin.controls; }
 
 }

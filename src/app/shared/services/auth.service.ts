@@ -1,19 +1,23 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from './user';
-import * as auth from 'firebase/auth'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth} from '@angular/fire/compat/auth'
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorComponent } from 'src/app/error/error.component';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  $ : any
   userData: any;
   accountErrorMessage: any;
 
   constructor(
+    private dialog:MatDialog,
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router : Router,
@@ -39,26 +43,66 @@ SignIn = (email: string, password : string) => {
       this.SetUserData(result.user);
       this.afAuth.authState.subscribe((user) => {
         if (user) {
-          console.log(user)
           this.router.navigate(['app'])
         }
       })
     })
     .catch((error) => {
-      window.alert(error.message);
+      switch(error.code) {
+        case "auth/user-not-found":
+        {
+          this.accountErrorMessage = "User not Found"
+          this.dialog.open(ErrorComponent, {data:{ message :this.accountErrorMessage}, disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600})
+          break
+        }
+          default:
+        case "auth/invalid-login-credentials":
+        {
+          this.accountErrorMessage = "Invalid Login Credentials"
+          this.dialog.open(ErrorComponent, {data:{ message :this.accountErrorMessage},  disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600})
+          break
+        }
+      }
     })
 }
 
-SignUp = (email: string, password :string) => {
+SignUp = (username:string, email: string, password :string) => {
   return this.afAuth
     .createUserWithEmailAndPassword(email, password)
     .then((result) => {
-      this.SetUserData(result.user)
       this.SendVerificationMail() 
+      this.SetUserData(result.user)
+      this.afAuth.onAuthStateChanged((user) => {
+        if (user){
+          user.updateProfile({
+            displayName : username
+          })
+        }
+      })
       this.afAuth.signOut()
       })
       .catch((error) => {
-        window.alert(error.message)
+        switch (error.code) {
+          case "auth/weak-password":
+             {
+              this.accountErrorMessage = "Password needs to be at least 6 characters"
+              this.dialog.open(ErrorComponent, {data:{ message :this.accountErrorMessage},  disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600})
+              break
+             }
+          case "auth/email-already-in-use": {
+            this.accountErrorMessage = "There is a user with the same email address"
+            this.dialog.open(ErrorComponent, {data:{ message :this.accountErrorMessage},  disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600})
+            break
+          }
+          case "auth/invalid-email":{
+            this.accountErrorMessage = "Something is wrong with your email"
+            this.dialog.open(ErrorComponent, {data:{ message :this.accountErrorMessage},  disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600})
+            break
+          }
+          default:
+        
+        }
+        
       })
 }
 
@@ -71,7 +115,6 @@ SendVerificationMail = () => {
     }
   
 
-
 get isLoggedin() : boolean {
   const user = JSON.parse(localStorage.getItem('user')!)
   return user !== null && user.emailVerified !== false ? true : false;
@@ -82,6 +125,7 @@ SetUserData = (user: any) => {
   const userData : User = {
     uid: user.uid,
     email: user.email,
+    displayName: user.displayName,
     emailVerified: user.emailVerified
   }
   return userRef.set(userData, {
@@ -96,4 +140,6 @@ SignOut = () => {
       this.router.navigate(['/'])
     })
 }
+
+
 }

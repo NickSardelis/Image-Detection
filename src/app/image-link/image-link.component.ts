@@ -1,6 +1,7 @@
 
 import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { FaceRecogComponent } from '../face-recog/face-recog.component';
+import { AuthService } from '../shared/services/auth.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { FaceRecogComponent } from '../face-recog/face-recog.component';
 })
 export class ImageLinkComponent implements AfterViewInit {
     
-    
+    constructor(public authService :AuthService){}
     @ViewChild(FaceRecogComponent) face: any;
     
     
@@ -69,7 +70,7 @@ export class ImageLinkComponent implements AfterViewInit {
         fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", this.returnClarifaiRequest(this.input))
             .then(response => response.json())
             .then(response => {
-                this.displayBox(this.FaceLocation(response))
+                this.FaceLocation(response)
             })
             
             

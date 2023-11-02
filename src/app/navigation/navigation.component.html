@@ -1,1 +1,5 @@
-<button (click)="authService.SignOut()" class="d-flex justify-content-end" routerLink="/signin" mat-raised-button>Sign out</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span *ngIf="authService.userData as user" class="navbar-brand mb-0 h1">Welcome:<strong> {{(user.displayName) ? user.displayName : 'User'}}</strong></span>
+    <button (click)="authService.SignOut()" class="ms-auto" routerLink="/signin" mat-raised-button>Sign out</button>
+
+  </nav>

@@ -1,10 +1,15 @@
 import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { AuthService } from '../shared/services/auth.service';
 @Component({
   selector: 'app-face-recog',
   templateUrl: './face-recog.component.html',
   styleUrls: ['./face-recog.component.css']
 })
 export class FaceRecogComponent {
+  constructor(public authService :AuthService){}
+
+
+
   @Input() click: string = '';
   box :any = {}
   initialBox : any = {}
@@ -27,9 +32,7 @@ export class FaceRecogComponent {
          }
           
 
-  displayFaceBox = (box: any) => {
-    box = this.box
-  }
+
 
 
   
