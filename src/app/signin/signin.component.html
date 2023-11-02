@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div class="form-outline mb-3">
-                <input type="text" formControlName="password" id="form3Example4" class="form-control form-control-lg"
+                <input type="password" formControlName="password" id="form3Example4" class="form-control form-control-lg"
                   placeholder="Enter password" [class.is-invalid] = "signin.get('password').invalid && signin.get('password').touched" #userPassword/>
                 <div *ngIf="f.password.errors" class="invalid-feedback">
                   <div *ngIf="f.password.errors.required">Password is required</div>
