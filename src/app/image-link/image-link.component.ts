@@ -70,7 +70,7 @@ export class ImageLinkComponent implements AfterViewInit {
         fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", this.returnClarifaiRequest(this.input))
             .then(response => response.json())
             .then(response => {
-                this.FaceLocation(response)
+                this.displayBox(this.FaceLocation(response))
             })
             
             

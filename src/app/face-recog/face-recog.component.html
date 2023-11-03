@@ -1,6 +1,8 @@
 <div class="d-flex justify-content-center">
     <div class="position-absolute mt2" >
         <img  class="logo" src={{click}} width="500px" height="auto" alt="imageFace" id = 'imageFace' >
-        <div class="bounding-box" [ngStyle]="{'top.px': box.topRow, 'right.px' : box.rightCol, 'bottom.px' : box.bottomRow, 'left.px' : box.leftCol }"></div>
+        
+            <div *ngFor="let bound of appendBox" class="bounding-box" [ngStyle]="{'top.px': bound.topRow, 'right.px' : bound.rightCol, 'bottom.px' : bound.bottomRow, 'left.px' : bound.leftCol }"></div>
+
     </div>
 </div>

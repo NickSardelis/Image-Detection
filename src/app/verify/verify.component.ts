@@ -17,9 +17,6 @@ export class VerifyComponent {
   
   getBackToSignIn = () => {
     this.router.navigate(['signin'])
-      // .then(() => {
-      //   window.location.reload()
-      // })
   }
 }
 

@@ -6,13 +6,13 @@ import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/f
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorComponent } from 'src/app/error/error.component';
+import { takeUntil } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  $ : any
   userData: any;
   accountErrorMessage: any;
 
@@ -44,6 +44,8 @@ SignIn = (email: string, password : string) => {
       this.afAuth.authState.subscribe((user) => {
         if (user) {
           this.router.navigate(['app'])
+        } if (user.emailVerified !== true) {
+          this.dialog.open(ErrorComponent, {data:{ message : 'You need to verify your email to proceed'},  disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600}).afterClosed().subscribe(()=>{this.router.navigate(['verify'])})
         }
       })
     })
@@ -128,6 +130,7 @@ SetUserData = (user: any) => {
     displayName: user.displayName,
     emailVerified: user.emailVerified
   }
+  
   return userRef.set(userData, {
     merge: false
   })
