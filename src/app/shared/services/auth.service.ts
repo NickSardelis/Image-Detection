@@ -6,7 +6,6 @@ import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/f
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorComponent } from 'src/app/error/error.component';
-import { takeUntil } from 'rxjs';
 
 
 @Injectable({
@@ -15,25 +14,29 @@ import { takeUntil } from 'rxjs';
 export class AuthService {
   userData: any;
   accountErrorMessage: any;
-
+  
   constructor(
     private dialog:MatDialog,
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router : Router,
-    public ngZone : NgZone
+    public ngZone : NgZone,
   ) { 
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
+
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
       } else {
         localStorage.setItem('user' , 'null');
         JSON.parse(localStorage.getItem('user')!)
       }
+
+
     })
-  }
+
+}
 
 
 SignIn = (email: string, password : string) => {
@@ -42,7 +45,7 @@ SignIn = (email: string, password : string) => {
     .then((result) => {
       this.SetUserData(result.user);
       this.afAuth.authState.subscribe((user) => {
-        if (user) {
+        if (user && user.emailVerified == true) {
           this.router.navigate(['app'])
         } if (user.emailVerified !== true) {
           this.dialog.open(ErrorComponent, {data:{ message : 'You need to verify your email to proceed'},  disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600}).afterClosed().subscribe(()=>{this.router.navigate(['verify'])})
@@ -81,7 +84,6 @@ SignUp = (username:string, email: string, password :string) => {
           })
         }
       })
-      this.afAuth.signOut()
       })
       .catch((error) => {
         switch (error.code) {
@@ -117,10 +119,16 @@ SendVerificationMail = () => {
     }
   
 
+
 get isLoggedin() : boolean {
-  const user = JSON.parse(localStorage.getItem('user')!)
-  return user !== null && user.emailVerified !== false ? true : false;
+  const user = JSON.parse(localStorage.getItem('user')!)  
+  return user !== null;
 }
+
+
+
+
+
 
 SetUserData = (user: any) => {
   const userRef : AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid})`)

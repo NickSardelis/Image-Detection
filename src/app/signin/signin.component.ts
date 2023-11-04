@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormControl ,FormGroup, FormBuilder, Validators } 
 })
 export class SigninComponent {
   signin : FormGroup
+  
   constructor (
     public authService: AuthService,
     private formBuilder : FormBuilder
@@ -19,6 +20,8 @@ export class SigninComponent {
       password : ['', [Validators.required, Validators.minLength(6)]]
     })
   }
+
+
   get f() { return this.signin.controls; }
 
 }
