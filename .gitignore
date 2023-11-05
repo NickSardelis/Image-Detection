@@ -2,7 +2,7 @@
 
 # Compiled output
 /dist
-/src/app/environments
+/src/environments
 /tmp
 /out-tsc
 /bazel-out

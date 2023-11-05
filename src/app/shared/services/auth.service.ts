@@ -15,7 +15,7 @@ import { ObservableLike } from 'rxjs';
 export class AuthService {
   userData: any;
   accountErrorMessage: any;
-  newUser : any = {emailVerified : false}
+  newUser : any = ''
   constructor(
     private dialog:MatDialog,
     public afs: AngularFirestore,
@@ -124,17 +124,16 @@ SendVerificationMail = () => {
  get isLoggedin() : boolean {
   let user = JSON.parse(localStorage.getItem('user')!) 
   if (user){
-          const userRef = this.afs.collection('users').doc(user.uid + ')')
-          userRef.ref.get().then(doc => {
-            let onUser :any = doc.data()
-            if (onUser.emailVerified == true) {
-              user.emailVerified = true
-              this.newUser = user
-            } return this.newUser
-
-          })
-    } 
-  return user !== null && this.newUser.emailVerified !== false;
+              const userRef = this.afs.collection('users').doc(user.uid + ')')
+              userRef.ref.get().then(doc => {
+                let onUser :any = doc.data()
+                if (onUser.emailVerified == true) {
+                  user.emailVerified = true
+                  this.newUser = user
+                } return this.newUser
+              })
+            }
+  return user !== null && user.emailVerified !== false || this.newUser.emailVerified !== false && this.newUser !== '';
 }
 
 

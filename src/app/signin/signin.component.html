@@ -30,10 +30,10 @@
                 </div>
               </div>
               <div class="text-center text-lg-start mt-4 pt-2" > 
-                <button [disabled] = "!signin.valid" (click)="authService.SignIn(userEmail.value , userPassword.value)" type="button" class="btn btn-primary btn-lg"
+                <button [disabled] = "!signin.valid" (click)="authService.SignIn(userEmail.value , userPassword.value)" type="submit" class="btn btn-primary btn-lg"
                   style="padding-left: 2.5rem; padding-right: 2.5rem;" >Login</button>
                 <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <button 
-                    mat-button routerLink="/signup">Register</button></p>
+                    mat-button type ="button" routerLink="/signup">Register</button></p>
               </div>
             </form>
           </div>
