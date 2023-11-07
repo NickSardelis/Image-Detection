@@ -73,7 +73,7 @@ export class ImageLinkComponent implements AfterViewInit {
                 this.displayBox(this.FaceLocation(response))
             })
             
-            
+            this.face.appendBox = [] 
         }
         
         
