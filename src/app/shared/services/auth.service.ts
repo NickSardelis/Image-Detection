@@ -1,12 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from './user';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth} from '@angular/fire/compat/auth'
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorComponent } from 'src/app/error/error.component';
-import { ObservableLike } from 'rxjs';
 
 
 @Injectable({
@@ -17,7 +15,7 @@ export class AuthService {
   accountErrorMessage: any;
   newUser : any = ''
   constructor(
-    private dialog:MatDialog,
+    public dialog:MatDialog,
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router : Router,
@@ -105,7 +103,6 @@ SignUp = (username:string, email: string, password :string) => {
             break
           }
           default:
-        
         }
         
       })
@@ -135,11 +132,6 @@ SendVerificationMail = () => {
             }
   return user !== null && user.emailVerified !== false || this.newUser.emailVerified !== false && this.newUser !== '';
 }
-
-
-
-
-
 
 
 SetUserData = (user: any) => {

@@ -36,6 +36,7 @@ export class FaceRecogComponent {
 
 
   displayFaceBox = (box) => {
+    
     box = this.appendBox
   }
 }

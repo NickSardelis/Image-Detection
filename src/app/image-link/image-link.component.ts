@@ -2,8 +2,8 @@
 import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { FaceRecogComponent } from '../face-recog/face-recog.component';
 import { AuthService } from '../shared/services/auth.service';
-
-
+import { ErrorComponent } from '../error/error.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-image-link',
   templateUrl: './image-link.component.html',
@@ -70,8 +70,13 @@ export class ImageLinkComponent implements AfterViewInit {
         fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", this.returnClarifaiRequest(this.input))
             .then(response => response.json())
             .then(response => {
-                this.displayBox(this.FaceLocation(response))
-            })
+                const box = this.displayBox(this.FaceLocation(response))
+                
+            }).catch(() => {
+                this.authService.dialog.open(ErrorComponent, {data:{ message :'Could not find any faces in this image'},  disableClose:true, enterAnimationDuration: 400, exitAnimationDuration: 600})
+            });
+            ;
+            
             
             this.face.appendBox = [] 
         }
